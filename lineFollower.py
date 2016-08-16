@@ -12,7 +12,7 @@ BACKWARDS = 1
 
 SLOW = 128
 MEDIUM = 512
-FAST = 1023 
+FAST = 1023
 
 THRESHOLD_LEFT = 20500
 THRESHOLD_RIGHT = 20000
@@ -28,27 +28,27 @@ def turnLeft(speed):
 
 def turnRight(speed):
 	robot.set2MotorSpeed(FORWARD, speed, BACKWARDS, speed)
-	
+
 
 while True:
-	sensor1 = robot.getGray(5)
-	sensor2 = robot.getGray(6)
-	
-	print str(sensor1) + " " + str(sensor2)
-	
-	time.sleep(1)
+    sensor1 = robot.getGray(5)
+    sensor2 = robot.getGray(6)
 
-	if ((sensor1 < THRESHOLD_LEFT) and (sensor2 < THRESHOLD_RIGHT)):
-		forward(MEDIUM)
-		print "FORWARD"
-	else:
-		if(sensor1 < THRESHOLD_LEFT):
-			turnRight(MEDIUM)
-			print "RIGHT"
-		else:
-			turnLeft(MEDIUM)
-			print "LEFT"
-	
+    print str(sensor1) + " " + str(sensor2)
+
+    time.sleep(1)
+
+    if ((sensor1 < THRESHOLD_LEFT) and (sensor2 < THRESHOLD_RIGHT)):
+    	forward(MEDIUM)
+    	print "FORWARD"
+    else:
+    	if(sensor1 < THRESHOLD_LEFT):
+    		turnRight(MEDIUM)
+    		print "RIGHT"
+    	else:
+    		turnLeft(MEDIUM)
+    		print "LEFT"
+
 
 
 
