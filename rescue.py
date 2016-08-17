@@ -21,7 +21,7 @@ leftCalibrator = GrayCalibrator(left)
 rightCalibrator = GrayCalibrator(right)
 
 leftCalibrator.calibrate()
-rigthCalibrator.calibrate()
+rightCalibrator.calibrate()
 
 move = Move(robot)
 turn = Turn(robot)
