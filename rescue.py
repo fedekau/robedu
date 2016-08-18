@@ -14,17 +14,12 @@ from behaviours.turn import Turn
 robot =  usb4butia.USB4Butia()
 version = robot.getFirmwareVersion()
 
-left = Gray(robot, 5)
 center = Gray(robot, 4)
+left = Gray(robot, 5)
 right = Gray(robot, 6)
 
-leftCalibrator = GrayCalibrator(left)
-centerCalibrator = GrayCalibrator(center)
-rightCalibrator = GrayCalibrator(right)
-
-leftCalibrator.calibrate()
-centerCalibrator.calibrate()
-rightCalibrator.calibrate()
+calibrator = GrayCalibrator(center, left, right)
+calibrator.calibrate()
 
 move = Move(robot)
 turn = Turn(robot)
