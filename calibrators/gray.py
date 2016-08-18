@@ -21,7 +21,7 @@ class GrayCalibrator:
 
     def measure_average(self):
 	s = 0
-	for i in range(0, 10000):
+	for i in range(0, 1000):
 	    s += self.sensor.value()
-	return  s / 10000
+	return  s / 1000
 

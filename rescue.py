@@ -15,12 +15,15 @@ robot =  usb4butia.USB4Butia()
 version = robot.getFirmwareVersion()
 
 left = Gray(robot, 5)
+center = Gray(robot, 4)
 right = Gray(robot, 6)
 
 leftCalibrator = GrayCalibrator(left)
+centerCalibrator = GrayCalibrator(center)
 rightCalibrator = GrayCalibrator(right)
 
 leftCalibrator.calibrate()
+centerCalibrator.calibrate()
 rightCalibrator.calibrate()
 
 move = Move(robot)
@@ -30,6 +33,11 @@ while True:
     if ((left.seeing_white()) and (right.seeing_white())):
 	move.forward()
     	print "FORWARD"
+    	print "FULL LINE"
+    elif((left.seeing_white()) and (center.seeing_white()) and (right.seeing_white())):
+	move.forward()
+    	print "FORWARD"
+    	print "DOTTED LINE"
     else:
     	if(left.seeing_white()):
 	    turn.right()
