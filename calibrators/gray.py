@@ -1,4 +1,5 @@
 import os
+import pdb
 
 class GrayCalibrator:
     CONFIG_FILE = "gray_sensors.conf"
@@ -8,20 +9,21 @@ class GrayCalibrator:
 	self.sensors = sensors
 
     def calibrate(self):
-	if (is_calibrated()):
-	    load_calibration()
+	if (self.is_calibrated()):
+	    self.load_calibration()
 	else:
-	    generate_calibration()
+	    self.generate_calibration()
 
     def is_calibrated(self):
-	return os.path.exists(CONFIG_FILE)
+	return os.path.exists(self.CONFIG_FILE)
 
     def load_calibration(self):
-	with open(CONFIG_FILE, 'a+') as f:
-		config = f.readLines()
+	pdb.set_trace()
+	with open(self.CONFIG_FILE, 'r') as f:
+		config = f.readlines()
 		for i in config:
-		    p = i.split('\t')[0]
-		    t = i.split('\t')[1]
+		    p = int(i.split(' ')[0])
+		    t = int(i.split(' ')[1])
 		    sensor = next(s for s in sensor if s.port == p)
 		    sensor.threshold = t
 
@@ -42,20 +44,20 @@ class GrayCalibrator:
 	    threshold = min(avg[0][i], avg[1][i]) + (abs(avg[0][i] - avg[1][i]) / 2)
 	    self.sensor.threshold = threshold
 	    print "The threshold for sensor in %(sensor.port)s is: %(threshold)s" % locals()
-	with open(CONFIG_FILE, "w") as f:
+	with open(self.CONFIG_FILE, "w") as f:
 	    for s in self.sensors:
-		f.write(str(s.port) + '\t' + str(s.threshold) + '\n')
+		f.write(str(s.port) + ' ' + str(s.threshold) + '\n')
 
 
     def measure_average(self):
 	s = [0] * len(self.sensors)
 
-	for i in range(0, MEASUREMENTS):
+	for i in range(0, self.MEASUREMENTS):
 	    for sensor in self.sensors:
 	        s[self.sensors.index(sensor)] += sensor.value()
 
 	for sensor in self.sensors:
-	    s[self.sensors.index(sensor)] = s[self.sensors.index(sensor)] / MEASUREMENTS
+	    s[self.sensors.index(sensor)] = s[self.sensors.index(sensor)] / self.MEASUREMENTS
 	return s
 
 
