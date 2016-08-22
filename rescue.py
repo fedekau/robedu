@@ -17,7 +17,7 @@ center = Gray(robot, 4)
 left = Gray(robot, 5)
 right = Gray(robot, 6)
 
-calibrator = GrayCalibrator(center, left, right)
+calibrator = GrayCalibrator([center, left, right])
 calibrator.calibrate()
 
 move = Move(robot)

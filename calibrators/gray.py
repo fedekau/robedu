@@ -1,5 +1,4 @@
 import os
-import pdb
 
 class GrayCalibrator:
     CONFIG_FILE = "gray_sensors.conf"
@@ -18,13 +17,12 @@ class GrayCalibrator:
 	return os.path.exists(self.CONFIG_FILE)
 
     def load_calibration(self):
-	pdb.set_trace()
 	with open(self.CONFIG_FILE, 'r') as f:
 		config = f.readlines()
 		for i in config:
 		    p = int(i.split(' ')[0])
 		    t = int(i.split(' ')[1])
-		    sensor = next(s for s in sensor if s.port == p)
+		    sensor = next(s for s in self.sensors if s.port == p)
 		    sensor.threshold = t
 
     def generate_calibration(self):
@@ -42,8 +40,8 @@ class GrayCalibrator:
 	for sensor in self.sensors:
 	    i = self.sensors.index(sensor)
 	    threshold = min(avg[0][i], avg[1][i]) + (abs(avg[0][i] - avg[1][i]) / 2)
-	    self.sensor.threshold = threshold
-	    print "The threshold for sensor in %(sensor.port)s is: %(threshold)s" % locals()
+	    sensor.threshold = threshold
+
 	with open(self.CONFIG_FILE, "w") as f:
 	    for s in self.sensors:
 		f.write(str(s.port) + ' ' + str(s.threshold) + '\n')
