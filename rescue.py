@@ -6,6 +6,7 @@ from pybot import usb4butia
 
 from sensors.gray import Gray
 from calibrators.gray import GrayCalibrator
+from calibrators.wheel import WheelCalibrator
 
 from behaviours.move import Move
 from behaviours.turn import Turn
@@ -17,11 +18,17 @@ center = Gray(robot, 4)
 left = Gray(robot, 5)
 right = Gray(robot, 6)
 
-calibrator = GrayCalibrator([center, left, right])
-calibrator.calibrate()
-
 move = Move(robot)
 turn = Turn(robot)
+
+grayCalibrator = GrayCalibrator([center, left, right])
+grayCalibrator.calibrate()
+
+wheelCalibrator = WheelCalibrator(move)
+wheelCalibrator.calibrate()
+
+
+
 
 while True:
     if ((left.seeing_white()) and (right.seeing_white())):
