@@ -1,4 +1,3 @@
-import time
 import sys
 
 sys.path.insert(0,'/usr/share/sugar/activities/TurtleBots.activity/plugins/butia')
