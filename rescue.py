@@ -13,6 +13,7 @@ from behaviours.turn import Turn
 
 robot =  usb4butia.USB4Butia()
 version = robot.getFirmwareVersion()
+print str(version)
 
 center = Gray(robot, 4)
 left = Gray(robot, 5)
