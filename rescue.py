@@ -36,23 +36,21 @@ while True:
     	print "FORWARD"
 
     else:    
-	    if(rigth_inner.seeing_black()):
+	    if(left_inner.seeing_black() and (left_outer.seeing_black())):
+		turn.left(False)
+		time.sleep(1)
+		print "CORNER RIGHT"
+	    elif(right_inner.seeing_black() and (right_outer.seeing_black())):
+		turn.right(False)
+		time.sleep(1)
+		print "CORNER LEFT"
+	    elif(right_inner.seeing_black() or right_outer.seeing_black()):
 		turn.right()
 		print "RIGHT"
-
-	    if(left_inner.seeing_black()):
+	    elif(left_inner.seeing_black() or left_outer.seeing_black()):
 		turn.left()
 		print "LEFT"
 
-    if(left_inner.seeing_black() and (left_outer.seeing_black())):
-	turn.right(False)
-	time.sleep(0.2)
-	print "CORNER LEFT"
-
-    if(right_inner.seeing_black() and (right_outer.seeing_black())):
-	turn.left(False)
-	time.sleep(0.2)
-	print "CORNER RIGHT"
 	
 
 
