@@ -1,4 +1,5 @@
 import sys
+import time
 
 sys.path.insert(0,'/usr/share/sugar/activities/TurtleBots.activity/plugins/butia')
 
@@ -15,37 +16,43 @@ robot =  usb4butia.USB4Butia()
 version = robot.getFirmwareVersion()
 print str(version)
 
-center = Gray(robot, 4)
-left = Gray(robot, 5)
-right = Gray(robot, 6)
+left_inner = Gray(robot, 6)
+left_outer = Gray(robot, 1)
+right_inner = Gray(robot, 5)
+right_outer = Gray(robot, 4)
 
 move = Move(robot)
 turn = Turn(robot)
 
-grayCalibrator = GrayCalibrator([center, left, right])
+grayCalibrator = GrayCalibrator([left_inner, right_inner, left_outer, right_outer])
 grayCalibrator.calibrate()
 
 wheelCalibrator = WheelCalibrator(move)
 wheelCalibrator.calibrate()
 
-
-
-
 while True:
-    if ((left.seeing_white()) and (right.seeing_white())):
+    if ((left_inner.seeing_white()) and (right_inner.seeing_white()) and (left_outer.seeing_white()) and (right_outer.seeing_white())):
 	move.forward()
     	print "FORWARD"
-    	print "FULL LINE"
-    elif((left.seeing_white()) and (center.seeing_white()) and (right.seeing_white())):
-	move.forward()
-    	print "FORWARD"
-    	print "DOTTED LINE"
-    else:
-    	if(left.seeing_white()):
-	    turn.right()
-    	    print "RIGHT"
-    	else:
-	    turn.left()
-	    print "LEFT"
+
+    else:    
+	    if(rigth_inner.seeing_black()):
+		turn.right()
+		print "RIGHT"
+
+	    if(left_inner.seeing_black()):
+		turn.left()
+		print "LEFT"
+
+    if(left_inner.seeing_black() and (left_outer.seeing_black())):
+	turn.right(False)
+	time.sleep(0.2)
+	print "CORNER LEFT"
+
+    if(right_inner.seeing_black() and (right_outer.seeing_black())):
+	turn.left(False)
+	time.sleep(0.2)
+	print "CORNER RIGHT"
+	
 
 
